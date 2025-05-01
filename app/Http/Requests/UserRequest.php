@@ -46,6 +46,11 @@ class UserRequest extends FormRequest
                 "integer",
                 Rule::exists("hobbies", "id")
             ],
+            "profile_pic" => [
+                "required",
+                "mimes:jpg,jpeg,png",
+                "max:1024"
+            ],
         ];
 
         if ($this->isMethod('PUT')) {
@@ -55,12 +60,6 @@ class UserRequest extends FormRequest
                 "numeric",
                 Rule::unique("users", "contact_no")
                     ->ignore($this->route('user')->id),
-            ];
-
-            $rules['profile_pic'] = [
-                "nullable",
-                "mimes:jpg,jpeg,png",
-                "max:1024"
             ];
         }
 
