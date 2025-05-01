@@ -45,13 +45,16 @@ class UserRequest extends FormRequest
             "hobbies.*" => [
                 "integer",
                 Rule::exists("hobbies", "id")
-            ],
-            "profile_pic" => [
+            ]
+        ];
+
+        if ($this->isMethod('POST')) {
+            $rules['profile_pic'] = [
                 "required",
                 "mimes:jpg,jpeg,png",
                 "max:1024"
-            ],
-        ];
+            ];
+        }
 
         if ($this->isMethod('PUT')) {
             $rules['contact_no'] = [
